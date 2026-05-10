@@ -218,6 +218,10 @@ const products = [
 const productGrid = document.querySelector("#productGrid");
 const comparisonTable = document.querySelector("#comparisonTable");
 const comparisonCards = document.querySelector("#comparisonCards");
+const storyProgress = document.querySelector("#storyProgress");
+const prevStory = document.querySelector("#prevStory");
+const nextStory = document.querySelector("#nextStory");
+let activeStory = 0;
 
 function createList(items) {
   return items.map((item) => `<li>${item}</li>`).join("");
@@ -296,7 +300,7 @@ function renderProducts() {
         <ul>${createList(product.promoNotes)}</ul>
       </div>
 
-      <details class="spec-details" open>
+      <details class="spec-details">
         <summary>Tüm Trendyol özellikleri</summary>
         <div class="spec-grid">${createSpecs(product.specs)}</div>
       </details>
@@ -316,6 +320,14 @@ function renderProducts() {
         <a class="trend-link" href="${product.url}" target="_blank" rel="noopener noreferrer">Trendyol’da İncele</a>
       </div>
     </article>
+  `).join("");
+}
+
+function renderProgress() {
+  storyProgress.innerHTML = products.map((product, index) => `
+    <button class="progress-dot" type="button" data-story-index="${index}" aria-label="${product.name} kartına geç">
+      <span></span>
+    </button>
   `).join("");
 }
 
@@ -363,21 +375,49 @@ function bindPriceButtons() {
   });
 }
 
-function revealCards() {
+function updateStory(index) {
+  activeStory = Math.max(0, Math.min(index, products.length - 1));
   const cards = document.querySelectorAll(".product-card");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-      }
-    });
-  }, { threshold: 0.22 });
+  const dots = document.querySelectorAll(".progress-dot");
 
-  cards.forEach((card) => observer.observe(card));
+  cards.forEach((card, cardIndex) => {
+    card.classList.toggle("is-visible", cardIndex === activeStory);
+    card.classList.toggle("is-before", cardIndex < activeStory);
+  });
+
+  dots.forEach((dot, dotIndex) => {
+    dot.classList.toggle("is-active", dotIndex === activeStory);
+  });
+
+  prevStory.disabled = activeStory === 0;
+  nextStory.textContent = activeStory === products.length - 1 ? "Sonucu Gör" : "Devam Et";
+}
+
+function bindStoryControls() {
+  nextStory.addEventListener("click", () => {
+    if (activeStory === products.length - 1) {
+      document.querySelector("#sonuc").scrollIntoView({ behavior: "smooth" });
+      return;
+    }
+    updateStory(activeStory + 1);
+  });
+
+  prevStory.addEventListener("click", () => updateStory(activeStory - 1));
+
+  document.querySelectorAll(".progress-dot").forEach((dot) => {
+    dot.addEventListener("click", () => updateStory(Number(dot.dataset.storyIndex)));
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") updateStory(activeStory + 1);
+    if (event.key === "ArrowLeft") updateStory(activeStory - 1);
+  });
 }
 
 renderProducts();
+renderProgress();
 renderTable();
 renderComparisonCards();
 bindPriceButtons();
-revealCards();
+bindStoryControls();
+updateStory(0);

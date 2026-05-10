@@ -148,7 +148,8 @@ h1 {
 .primary-link,
 .secondary-link,
 .card-button,
-.trend-link {
+.trend-link,
+.story-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -163,7 +164,8 @@ h1 {
 }
 
 .primary-link,
-.card-button {
+.card-button,
+.story-button {
   color: #0f2b18;
   background: var(--green);
   box-shadow: 0 12px 28px rgba(30, 215, 96, 0.26);
@@ -175,6 +177,19 @@ h1 {
   background: rgba(255, 255, 255, 0.12);
 }
 
+.story-button.ghost {
+  color: #171717;
+  border: 1px solid rgba(23, 23, 23, 0.12);
+  background: #fff;
+  box-shadow: none;
+}
+
+.story-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+}
+
 .trend-link {
   color: #fff;
   background: #171717;
@@ -183,7 +198,8 @@ h1 {
 .primary-link:hover,
 .secondary-link:hover,
 .card-button:hover,
-.trend-link:hover {
+.trend-link:hover,
+.story-button:hover {
   transform: translateY(-2px);
 }
 
@@ -258,31 +274,76 @@ main {
   margin-bottom: 24px;
 }
 
-.product-grid {
+.story-shell {
+  position: relative;
+}
+
+.story-progress {
   display: grid;
-  gap: 28px;
-  scroll-snap-type: y proximity;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.progress-dot {
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(23, 23, 23, 0.12);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.progress-dot span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: #171717;
+  transition: width 280ms ease;
+}
+
+.progress-dot.is-active span {
+  width: 100%;
+}
+
+.product-grid {
+  position: relative;
+  min-height: 86vh;
 }
 
 .product-card {
   position: relative;
-  display: grid;
+  display: none;
   gap: 22px;
-  min-height: 82vh;
+  min-height: 86vh;
   padding: clamp(22px, 4vw, 40px);
   border-radius: 34px;
   color: #141414;
   box-shadow: var(--shadow);
   overflow: hidden;
-  scroll-snap-align: start;
   opacity: 0;
-  transform: translateY(42px) scale(0.98);
-  transition: opacity 520ms ease, transform 520ms ease;
+  transform: translateX(34px) scale(0.98);
+  transition: opacity 420ms ease, transform 420ms ease;
 }
 
 .product-card.is-visible {
+  display: grid;
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateX(0) scale(1);
+  animation: storyIn 420ms ease both;
+}
+
+@keyframes storyIn {
+  from {
+    opacity: 0;
+    transform: translateX(34px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
 }
 
 .product-card::before {
@@ -528,6 +589,13 @@ main {
   margin-top: auto;
 }
 
+.story-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+
 .table-section {
   margin-top: 84px;
   padding: 72px 0;
@@ -677,7 +745,7 @@ footer {
   }
 
   .product-card {
-    min-height: auto;
+    min-height: 78vh;
   }
 
   .product-photo-main {
@@ -711,14 +779,16 @@ footer {
   }
 
   .hero-actions,
-  .card-actions {
+  .card-actions,
+  .story-controls {
     flex-direction: column;
   }
 
   .primary-link,
   .secondary-link,
   .card-button,
-  .trend-link {
+  .trend-link,
+  .story-button {
     width: 100%;
   }
 
@@ -733,12 +803,42 @@ footer {
   }
 
   .product-card {
-    padding: 18px;
+    min-height: calc(100svh - 156px);
+    padding: 16px;
     border-radius: 28px;
+    gap: 12px;
   }
 
   .product-card h3 {
-    font-size: clamp(2rem, 13vw, 4rem);
+    font-size: clamp(1.85rem, 11vw, 3.2rem);
+  }
+
+  .product-grid {
+    min-height: calc(100svh - 156px);
+  }
+
+  .card-top {
+    gap: 12px;
+  }
+
+  .product-photo-main {
+    width: 118px;
+    border-radius: 22px;
+  }
+
+  .meta-row {
+    gap: 6px;
+  }
+
+  .pill,
+  .score-chip,
+  .winner-badge {
+    padding: 6px 9px;
+    font-size: 0.74rem;
+  }
+
+  .photo-strip {
+    gap: 7px;
   }
 
   .price-box,
@@ -753,7 +853,62 @@ footer {
   }
 
   .mini-photo {
-    width: 68px;
+    width: 54px;
     border-radius: 16px;
+  }
+
+  .feature-list {
+    gap: 8px;
+  }
+
+  .feature-list .feature:first-child,
+  .feature-list .feature:nth-child(4) {
+    display: none;
+  }
+
+  .feature,
+  .promo-notes,
+  .spec-details,
+  .pros-cons > div {
+    padding: 11px;
+    border-radius: 16px;
+  }
+
+  .feature strong,
+  .promo-notes h4,
+  .pros-cons h4 {
+    margin-bottom: 3px;
+    font-size: 0.88rem;
+  }
+
+  .feature span,
+  .promo-notes li,
+  .pros-cons li,
+  .spec-row strong {
+    font-size: 0.82rem;
+  }
+
+  .spec-details:not([open]) {
+    padding: 13px;
+  }
+
+  .spec-grid {
+    max-height: 190px;
+    overflow: auto;
+  }
+
+  .promo-notes,
+  .pros-cons {
+    display: none;
+  }
+
+  .story-controls {
+    position: sticky;
+    bottom: 10px;
+    z-index: 5;
+    padding: 10px;
+    border-radius: 22px;
+    background: rgba(248, 248, 243, 0.88);
+    backdrop-filter: blur(14px);
   }
 }
