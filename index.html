@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Annem ve babam için en mantıklı robot süpürge seçimi: Narwal, Roborock ve Dreame robot süpürge karşılaştırması.">
+  <title>Robot Süpürge Karşılaştırması</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="topbar" aria-label="Sayfa bölümleri">
+      <a class="brand" href="#top">Robot Süpürge Karşılaştırması</a>
+      <div class="nav-links">
+        <a href="#urunler">Akış</a>
+        <a href="#tablo">Kıyas</a>
+        <a href="#sonuc">Sonuç</a>
+      </div>
+    </nav>
+
+    <section class="hero-content">
+      <div class="hero-copy">
+        <span class="eyebrow">Trendyol verileri + tanıtım görselleri</span>
+        <h1>Robot Süpürge Karşılaştırması</h1>
+        <p>Annem ve babam için en mantıklı robot süpürge seçimi</p>
+        <div class="hero-actions">
+          <a class="primary-link" href="#urunler">Wrapped Akışını Başlat</a>
+          <a class="secondary-link" href="#tablo">Hızlı Kıyas</a>
+        </div>
+      </div>
+      <div class="hero-album" aria-hidden="true">
+        <div class="album-card album-card-a">18.000 Pa</div>
+        <div class="album-card album-card-b">Paspas + İstasyon</div>
+        <div class="album-card album-card-c">Aile için kolay seçim</div>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="intro section-wrap">
+      <div>
+        <span class="section-kicker">Kısa cevap</span>
+        <h2>En mantıklı seçim, sadece en güçlü olan değil; eve en az iş çıkaran model.</h2>
+      </div>
+      <p>
+        Bu sürümde ürünler tek tek açılan büyük kartlarla anlatılır. Fiyatlar kartlarda gizlidir,
+        ürün fotoğrafları minik şeritlerde gösterilir ve Trendyol’daki tüm teknik özellikler ayrıca listelenir.
+      </p>
+    </section>
+
+    <section class="section-wrap" id="urunler">
+      <div class="section-heading">
+        <span class="section-kicker">Wrapped akışı</span>
+        <h2>Her robot süpürge tek tek sahneye çıkıyor</h2>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <section class="table-section" id="tablo">
+      <div class="section-wrap">
+        <div class="section-heading">
+          <span class="section-kicker">Karşılaştırma</span>
+          <h2>Telefonda da rahat okunan kıyas</h2>
+        </div>
+        <div class="table-shell" aria-label="Robot süpürge karşılaştırma tablosu">
+          <table>
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Puan</th>
+                <th>Fiyat</th>
+                <th>Emiş</th>
+                <th>Paspas</th>
+                <th>İstasyon</th>
+                <th>Navigasyon</th>
+              </tr>
+            </thead>
+            <tbody id="comparisonTable"></tbody>
+          </table>
+        </div>
+        <div class="comparison-cards" id="comparisonCards"></div>
+      </div>
+    </section>
+
+    <section class="verdict section-wrap" id="sonuc">
+      <div class="verdict-card">
+        <span class="winner-badge">En önerilen seçim</span>
+        <h2>Narwal Freo Z10 Ultra</h2>
+        <p>
+          Genel değerlendirmede Narwal Freo Z10 Ultra en mantıklı seçenek olarak öne çıkıyor.
+          Güçlü 18.000 Pa emiş performansı, gelişmiş paspas ve temizlik özellikleri,
+          otomatik istasyon desteği ve aile kullanımı için daha zahmetsiz günlük deneyimi
+          birlikte düşünüldüğünde fiyat/performans dengesi daha ikna edici.
+        </p>
+        <div class="verdict-points">
+          <span>Güçlü emiş performansı</span>
+          <span>Gelişmiş paspas ve temizlik özellikleri</span>
+          <span>Fiyat/performans dengesi</span>
+          <span>Genel kullanım kolaylığı</span>
+          <span>Aile için daha mantıklı seçim</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Fiyatlar, puanlar ve teknik özellikler 10 Mayıs 2026 tarihinde Trendyol ürün sayfalarından ve ürün tanıtım görsellerinden derlenmiştir. Satıcı, stok ve kampanyalara göre değişebilir.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
